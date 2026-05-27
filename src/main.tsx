@@ -1,6 +1,6 @@
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
-import "../node_modules/bootstrap/scss/bootstrap";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 createRoot(document.getElementById('root')!).render(<App />)
