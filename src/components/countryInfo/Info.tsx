@@ -1,4 +1,5 @@
 import './Info.css'
+
 interface Props {
     png: string
     name: string
@@ -6,7 +7,7 @@ interface Props {
     area: number
     region: string
     population: number
-    borders: string
+    borders: string[]
 }
 
 
@@ -57,12 +58,16 @@ const Info = ({ png, name, capital, area, region, population, borders }: Props) 
                                 </div>
                             </div>
                             <div className='wrapperInfo'>
-                                <div className="icon">
-                                    <i className="bi bi-dash-square-dotted me-2"></i>
-                                </div>
                                 <div className="info">
-                                    <p className='capital'>Borders with:</p>
-                                    <p className='capitalName'><b>{borders}</b></p>
+                                    <div className="icon">
+                                    <i className="bi bi-bounding-box me-2"></i>
+                                        <p className='capital'>Borders with:</p>
+                                    </div>
+                                    <ul>
+                                        {borders.map((country, index) =>
+                                            <li className='capitalName' key={index}><b>{country}</b></li>
+                                        )}
+                                    </ul>
                                 </div>
                             </div>
                         </div>

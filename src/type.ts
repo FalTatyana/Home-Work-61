@@ -4,7 +4,7 @@ export type Country = {
     }
     name: string
     alpha3Code: string
-    capital: [string]
+    capital: string[]
   };
 
 export interface CountryInfo {
@@ -17,6 +17,6 @@ export interface CountryInfo {
     region: string
     population: number
     area: number
-    borders: string
+    borders?: string[]
     capital: string
   }

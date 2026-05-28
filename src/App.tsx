@@ -8,6 +8,7 @@ import type { Country, CountryInfo } from './type';
 function App() {
   const [countries, setCountries] = useState<Country[]>([]);
   const [countryInfo, setCountryInfo] = useState<CountryInfo>();
+  const [bordersName, setBordersName] = useState<string[]>([]);
 
   const url = 'https://restcountries.com/v2/all?fields=alpha3Code,name,flags';
 
@@ -44,12 +45,28 @@ function App() {
         population: countryWay.population,
         area: countryWay.area,
         borders: countryWay.borders,
-        capital: countryWay.capital
+        capital: countryWay.capital?.[0] ?? 'No capital'
       }
 
+      const bordersArray: string[] = countryWay.borders ?? [];
+
+      if (bordersArray.length > 0) {
+        const borders = await Promise.all(
+          bordersArray.map(async (code) => {
+            const response = await axios.get<CountryInfo[]>(
+              `https://restcountries.com/v3.1/alpha/${code}`
+            );
+            return response.data[0].name.common;
+          })
+        );
+        setBordersName(borders);
+        console.log(borders);
+      } else {
+        setBordersName(['No borders'])
+      };
       setCountryInfo(country)
     } catch (error) {
-      console.log(error(error));
+      alert(error);
     }
   };
 
@@ -74,13 +91,13 @@ function App() {
       <div className="infoWrapper col-md-8">
         {countryInfo && (
           <Info
+            borders={bordersName}
             png={countryInfo.flags.png}
             name={countryInfo.name.common}
             capital={countryInfo.capital}
             area={countryInfo.area}
             region={countryInfo.region}
             population={countryInfo.population}
-            borders={countryInfo.borders}
           />
         )}
       </div>
