@@ -3,32 +3,13 @@ import './App.css'
 import List from './components/countryList/List'
 import axios from 'axios'
 import Info from './components/countryInfo/Info';
-
-type Country = {
-  name: string
-  alpha3Code: string
-  capital: [string]
-};
-
-interface CountryInfo {
-  flags: {
-    png: string
-  }
-  name: {
-    common: string
-  }
-  region: string
-  population: number
-  area: number
-  borders: string
-  capital: string
-}
+import type { Country, CountryInfo } from './type';
 
 function App() {
   const [countries, setCountries] = useState<Country[]>([]);
   const [countryInfo, setCountryInfo] = useState<CountryInfo>();
 
-  const url = 'https://restcountries.com/v2/all?fields=alpha3Code,name';
+  const url = 'https://restcountries.com/v2/all?fields=alpha3Code,name,flags';
 
   useEffect(() => {
     const countrysRequest = async () => {
@@ -73,19 +54,24 @@ function App() {
   };
 
   return (
-    <div className="container d-flex">
-      <div className="listWrapper me-3">
-        <ul className="list-group">
+    <div className="container d-flex justify-content-center">
+      <div className="listWrapper me-3 col-md-4 border p-3">
+        <div className="listTitle p-3">
+          <h2><i className="bi bi-globe-americas"></i> <b>Countries</b></h2>
+          <p className='listTitleP'>Explore all countries of the world</p>
+        </div>
+        <ul className="list-group list-group-flush scrollable-list">
           {countries.map((country) =>
             <List
               name={country.name}
               key={country.alpha3Code}
               onclick={() => handleShow(country.alpha3Code)}
+              png={country.flags.png}
             />
           )}
         </ul>
       </div>
-      <div className="infoWrapper">
+      <div className="infoWrapper col-md-8">
         {countryInfo && (
           <Info
             png={countryInfo.flags.png}

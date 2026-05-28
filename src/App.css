@@ -1,3 +1,22 @@
 body {
     padding: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.listWrapper {
+    box-shadow: 5px 5px 5px rgb(204, 204, 204);
+    border-radius: 15px;
+}
+
+.scrollable-list {
+    max-height: 70vh;   
+    overflow-y: auto;  
+}
+
+.listTitle {
+    color: #3884FD;
+}
+
+.listTitleP{
+    color: grey;
 }

@@ -1,0 +1,52 @@
+p {
+    margin: 0 !important;
+    padding: 0!important;
+}
+.card {
+    box-shadow: 5px 5px 5px rgb(204, 204, 204);
+    border-radius: 15px !important;
+}
+
+.card-title, .bi {
+    color: #3884FD !important;
+}
+
+.card-text {
+    color: gray;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.infoContainer {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.wrapperInfo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.bi {
+    font-size: 20px;
+}
+
+.icon {
+    margin-right: 10px;
+}
+
+.capital {
+    color: gray;
+    font-size: 12px;
+}
+
+.capitalName {
+    font-size: 15px;
+}

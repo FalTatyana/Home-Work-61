@@ -1,0 +1,7 @@
+.list-group-item:hover {
+    background-color: #ebf3ff;
+}
+
+.list-group-item {
+    border-radius: 10px;
+}

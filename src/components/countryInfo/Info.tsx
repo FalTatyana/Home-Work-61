@@ -1,3 +1,4 @@
+import './Info.css'
 interface Props {
     png: string
     name: string
@@ -12,20 +13,67 @@ interface Props {
 const Info = ({ png, name, capital, area, region, population, borders }: Props) => {
     return (
         <>
-            <div className="card mb-3 w-20">
+            <div className="card mb-3 border p-3">
                 <div className="row g-0">
-                    <div className="col-md-4">
-                        <img src={png} className="img-fluid rounded-start" alt="..." />
-                    </div>
                     <div className="col-md-8">
                         <div className="card-body">
-                            <h5 className="card-title">Cuntry: {name}</h5>
-                            <p className="card-text">Capital: {capital}</p>
-                            <p className="card-text">Capital: {area}</p>
-                            <p className="card-text">Region: {region}</p>
-                            <p className="card-text">Population: {population}</p>
-                            <p className="card-text">Borders: {borders}</p>
+                            <h1 className="card-title mb-5">{name}</h1>
+                            <div className='wrapperInfo'>
+                                <div className="icon">
+                                    <i className="bi bi-bank me-2"></i>
+                                </div>
+                                <div className="info">
+                                    <p className='capital'>Capital:</p>
+                                    <p className='capitalName'><b>{capital}</b></p>
+                                </div>
+                            </div>
+                            <div className="infoContainer">
+                                <div className='wrapperInfo'>
+                                    <div className="icon">
+                                        <i className="bi bi-people me-2"></i>
+                                    </div>
+                                    <div className="info">
+                                        <p className='capital'>Population:</p>
+                                        <p className='capitalName'><b>{population}</b></p>
+                                    </div>
+                                </div>
+                                <div className='wrapperInfo'>
+                                    <div className="icon">
+                                        <i className="bi bi-rulers me-2"></i>
+                                    </div>
+                                    <div className="info">
+                                        <p className='capital'>Area:</p>
+                                        <p className='capitalName'><b>{area} km²</b></p>
+                                    </div>
+                                </div>
+                                <div className='wrapperInfo'>
+                                    <div className="icon">
+                                        <i className="bi bi-globe me-2"></i>
+                                    </div>
+                                    <div className="info">
+                                        <p className='capital'>Region:</p>
+                                        <p className='capitalName'><b>{region}</b></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className='wrapperInfo'>
+                                <div className="icon">
+                                    <i className="bi bi-dash-square-dotted me-2"></i>
+                                </div>
+                                <div className="info">
+                                    <p className='capital'>Borders with:</p>
+                                    <p className='capitalName'><b>{borders}</b></p>
+                                </div>
+                            </div>
                         </div>
+                    </div>
+                    <div className="col-md-4 d-flex align-items-center mt-5">
+                        <img
+                            src={png}
+                            className="img-fluid rounded-start"
+                            alt="..."
+                            style={{ width: 200 }}
+                        />
                     </div>
                 </div>
             </div>
