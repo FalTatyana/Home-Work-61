@@ -1,22 +1,52 @@
 body {
-    padding: 30px;
-    font-family: Arial, Helvetica, sans-serif;
+  padding: 30px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .listWrapper {
-    box-shadow: 5px 5px 5px rgb(204, 204, 204);
-    border-radius: 15px;
+  box-shadow: 5px 5px 5px rgb(204, 204, 204);
+  border-radius: 15px;
 }
 
 .scrollable-list {
-    max-height: 70vh;   
-    overflow-y: auto;  
+  max-height: 70vh;
+  overflow-y: auto;
 }
 
 .listTitle {
-    color: #3884FD;
+  color: #3884fd;
 }
 
-.listTitleP{
-    color: grey;
+.listTitleP {
+  color: grey;
+}
+
+.spinnerOverlay {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    background: rgba(255, 255, 255, 0.6);
+    z-index: 9999;
+}
+
+.loader {
+  width: 68px;
+  height: 68px;
+  border: 5px solid #ccc;
+  border-top-color: #3884fd;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }

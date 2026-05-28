@@ -7,20 +7,26 @@ import type { Country, CountryInfo } from './type';
 
 function App() {
   const [countries, setCountries] = useState<Country[]>([]);
-  const [countryInfo, setCountryInfo] = useState<CountryInfo>();
+  const [countryInfo, setCountryInfo] = useState<CountryInfo | null>(null);
   const [bordersName, setBordersName] = useState<string[]>([]);
+  const [spinner, setSpinner] = useState(false);
 
   const url = 'https://restcountries.com/v2/all?fields=alpha3Code,name,flags';
 
   useEffect(() => {
     const countrysRequest = async () => {
+      setSpinner(true);
+
       try {
         const countrysData = await axios.get<Country[]>(url)
         setCountries(countrysData.data)
       } catch (error) {
-        console.log(error(error));
-      }
-    }
+        console.log(error);
+      } finally {
+        setSpinner(false);
+      };
+    };
+
     void countrysRequest();
   }, []);
 
@@ -29,9 +35,10 @@ function App() {
 
     if (!foundCountry) return;
 
+    setSpinner(true);
+
     try {
       const countryToCode = await axios.get<CountryInfo[]>(`https://restcountries.com/v3.1/alpha/${foundCountry.alpha3Code}`)
-
       const countryWay = countryToCode.data[0];
 
       const country = {
@@ -62,46 +69,55 @@ function App() {
         setBordersName(borders);
         console.log(borders);
       } else {
-        setBordersName(['No borders'])
+        setBordersName(['No borders']);
       };
       setCountryInfo(country)
     } catch (error) {
       alert(error);
-    }
+    } finally {
+      setSpinner(false);
+    };
   };
 
   return (
-    <div className="container d-flex justify-content-center">
-      <div className="listWrapper me-3 col-md-4 border p-3">
-        <div className="listTitle p-3">
-          <h2><i className="bi bi-globe-americas"></i> <b>Countries</b></h2>
-          <p className='listTitleP'>Explore all countries of the world</p>
+    <>
+      <div className="container d-flex justify-content-center">
+        <div className="listWrapper me-3 col-md-4 border p-3">
+          <div className="listTitle p-3">
+            <h2><i className="bi bi-globe-americas"></i> <b>Countries</b></h2>
+            <p className='listTitleP'>Explore all countries of the world</p>
+          </div>
+          <ul className="list-group list-group-flush scrollable-list">
+            {countries.map((country) =>
+              <List
+                name={country.name}
+                key={country.alpha3Code}
+                onclick={() => handleShow(country.alpha3Code)}
+                png={country.flags.png}
+              />
+            )}
+          </ul>
         </div>
-        <ul className="list-group list-group-flush scrollable-list">
-          {countries.map((country) =>
-            <List
-              name={country.name}
-              key={country.alpha3Code}
-              onclick={() => handleShow(country.alpha3Code)}
-              png={country.flags.png}
+        <div className="infoWrapper col-md-8">
+          {countryInfo && (
+            <Info
+              borders={bordersName}
+              png={countryInfo.flags.png}
+              name={countryInfo.name.common}
+              capital={countryInfo.capital}
+              area={countryInfo.area}
+              region={countryInfo.region}
+              population={countryInfo.population}
             />
           )}
-        </ul>
+        </div>
       </div>
-      <div className="infoWrapper col-md-8">
-        {countryInfo && (
-          <Info
-            borders={bordersName}
-            png={countryInfo.flags.png}
-            name={countryInfo.name.common}
-            capital={countryInfo.capital}
-            area={countryInfo.area}
-            region={countryInfo.region}
-            population={countryInfo.population}
-          />
-        )}
-      </div>
-    </div>
+      {spinner && (
+        <div className="spinnerOverlay">
+          <div className="loader"></div>
+        </div>
+      )}
+    </>
   )
 };
 

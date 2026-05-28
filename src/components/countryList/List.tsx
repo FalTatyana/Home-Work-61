@@ -21,6 +21,6 @@ const List = ({ name, onclick, png }: Props) => {
             {name}
         </li>
     )
-}
+};
 
 export default List
